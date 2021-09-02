@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -32,11 +33,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       defaultLanguage: 'es-ES',
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  })
+    }),
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
