@@ -1,4 +1,6 @@
+import { DbService } from './../services/db.service';
 import { Component, OnInit } from '@angular/core';
+import { Movie } from 'src/app/shared/models/movie.model';
 
 @Component({
   selector: 'app-movie-list',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovieListComponent implements OnInit {
 
-  constructor() { }
+  movies: Movie[] = [];
+
+  constructor(public db: DbService) { }
 
   ngOnInit(): void {
+    this.db.getMovies().subscribe( movies => this.movies=movies);
   }
 
 }

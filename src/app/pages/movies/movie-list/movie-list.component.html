@@ -1,1 +1,5 @@
-<p>movie-list works!</p>
+<app-loading-spinner *ngIf="!movies.length" ></app-loading-spinner>
+
+<div *ngFor="let movie of movies">
+  {{movie.id}}
+</div>
