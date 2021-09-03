@@ -1,5 +1,14 @@
-<app-loading-spinner *ngIf="!movies.length" ></app-loading-spinner>
-
-<div *ngFor="let movie of movies">
-  {{movie.id}}
+<app-loading-spinner *ngIf="!movies.length"></app-loading-spinner>
+<div style="padding: 1rem;">
+  <mat-card *ngFor="let movie of movies">
+    <mat-card-header>
+      <mat-card-title>{{ movie.title }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="movie.poster" />
+    <mat-card-content>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngFor="let genre of movie.genre">{{genre}}</mat-chip>
+      </mat-chip-list>
+    </mat-card-content>
+  </mat-card>
 </div>
