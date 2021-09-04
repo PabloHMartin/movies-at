@@ -1,3 +1,4 @@
+import { MovieState } from './movie.reducer';
 import { AppState } from 'src/app/store/app.reducers';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { Action, createReducer, on, State } from '@ngrx/store';
@@ -9,10 +10,6 @@ export interface MoviesState {
      loading: boolean,
      error: any
 };
-
-export interface AppStateWithMovies extends AppState{
-  movies: MoviesState
-}
 
 const MoviesInitialState: MoviesState = {
     movies: [],

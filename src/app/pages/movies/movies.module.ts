@@ -7,17 +7,19 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsArray } from './store/effects';
 import { EffectsModule } from '@ngrx/effects';
-import { moviesReducer } from './store/reducers';
+import * as reducers from './store/movies.reducer';
+import { MovieSingleComponent } from './movie-single/movie-single.component';
 
 @NgModule({
   declarations: [
-    MovieListComponent
+    MovieListComponent,
+    MovieSingleComponent
   ],
   imports: [
     CommonModule,
     MoviesRoutingModule,
     SharedModule,
-    StoreModule.forFeature('movies', moviesReducer ),
+    StoreModule.forFeature('movies', reducers.moviesReducers ),
     EffectsModule.forFeature(EffectsArray)
   ]
 })
