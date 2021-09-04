@@ -4,7 +4,10 @@ import { CommonModule } from '@angular/common';
 
 import { MoviesRoutingModule } from './movies-routing.module';
 import { MovieListComponent } from './movie-list/movie-list.component';
-
+import { StoreModule } from '@ngrx/store';
+import { EffectsArray } from './store/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { moviesReducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { MovieListComponent } from './movie-list/movie-list.component';
   imports: [
     CommonModule,
     MoviesRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('movies', moviesReducer ),
+    EffectsModule.forFeature(EffectsArray)
   ]
 })
 export class MoviesModule { }

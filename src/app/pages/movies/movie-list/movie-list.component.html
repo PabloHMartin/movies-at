@@ -1,4 +1,4 @@
-<app-loading-spinner *ngIf="!movies.length"></app-loading-spinner>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
 <div style="padding: 1rem;">
   <mat-card *ngFor="let movie of movies">
     <mat-card-header>
