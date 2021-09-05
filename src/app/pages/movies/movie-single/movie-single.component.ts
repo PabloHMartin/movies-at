@@ -1,9 +1,10 @@
-import { loadMovie } from './../store/actions/movie.actions';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { AppStateWithMovies } from '../store/movies.reducer';
+import { Movie } from 'src/app/shared/models/movie.model';
+import { loadMovie } from './store/actions';
+import { MovieModuleState } from './store/reducers';
 
 @Component({
   selector: 'app-movie-single',
@@ -12,14 +13,21 @@ import { AppStateWithMovies } from '../store/movies.reducer';
 })
 export class MovieSingleComponent implements OnInit {
 
+  movie: Movie | null;
+
   constructor(private route: ActivatedRoute,
-              public store: Store<AppStateWithMovies>) { }
+              private store: Store<MovieModuleState>
+              ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(({id}) => {
-      console.log('movie-single', id);
 
-      this.store.dispatch( loadMovie(id));
+    this.store.select('movie').subscribe( (movie) =>{
+      console.log('movie', movie.movie);
+      this.movie = movie.movie;
+    } )
+
+    this.route.params.subscribe(({id}) => {
+      this.store.dispatch( loadMovie({id: id}));
     })
   }
 

@@ -1,4 +1,3 @@
-import { AppState } from 'src/app/store/app.reducers';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { createReducer, on } from '@ngrx/store';
 import { loadMovie, loadMovieError, loadMovieSuccess } from '../actions';

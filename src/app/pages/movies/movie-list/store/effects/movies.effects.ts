@@ -1,9 +1,10 @@
-import { DbService } from './../../services/db.service';
-import * as moviesActions  from './../actions/movies.actions';
+import * as FromActions  from './../actions/movies.actions';
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { DbService } from '../../../services/db.service';
+import { loadMovies } from './../actions/movies.actions';
 
 @Injectable()
 export class moviesEffects {
@@ -15,13 +16,14 @@ export class moviesEffects {
 
     loadMovies$ = createEffect(
       () => this.actions$.pipe(
-        ofType( moviesActions.loadMovies ),
+        tap(data => console.log('data', data)),
+        ofType( loadMovies ),
         mergeMap(
           () => this.db.getMovies()
           .pipe(
             tap(data => console.info('effect loadMovies data', data)),
-            map( movies => moviesActions.loadMoviesSuccess({movies}) ),
-            catchError(payload => of(moviesActions.loadMoviesError({ payload })))
+            map( movies => FromActions.loadMoviesSuccess({movies: movies}) ),
+            catchError(payload => of(FromActions.loadMoviesError({ payload })))
           )
         )
       )

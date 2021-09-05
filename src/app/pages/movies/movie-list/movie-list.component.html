@@ -1,5 +1,6 @@
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 <div style="padding: 1rem;">
+
   <a *ngFor="let movie of movies" [routerLink]="movie.id.toString()">
   <mat-card>
     <mat-card-header>

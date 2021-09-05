@@ -1,10 +1,8 @@
-import { AppState } from 'src/app/store/app.reducers';
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/shared/models/movie.model';
 import { Store } from '@ngrx/store';
-import * as moviesActions from '../store/actions/index';
-import { map, tap } from 'rxjs/operators';
-import { AppStateWithMovies } from '../store/movies.reducer';
+import { Movie } from 'src/app/shared/models/movie.model';
+import { loadMovies } from './store/actions';
+import { MoviesModuleState } from './store/reducers';
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
@@ -15,21 +13,19 @@ export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
   loading: boolean = false;
 
-  constructor(private store: Store<AppStateWithMovies>) { }
+  constructor(private store: Store<MoviesModuleState>) { }
 
   ngOnInit(): void {
 
-    this.store.select('movieList')
-    .pipe(
-      tap( data => console.log('tap', data))
-    ).subscribe( (data) => {
-      console.log('data', data);
+    this.store.select('movies')
+    .subscribe( data => {
+      console.log('data-from-movielist', data.movies);
 
-     // this.movies = data;
-      //this.loading = data;
+      this.movies = data.movies;
+      this.loading = data.loading;
     })
 
-    this.store.dispatch( moviesActions.loadMovies() )
+    this.store.dispatch( loadMovies() )
   }
 
 }
