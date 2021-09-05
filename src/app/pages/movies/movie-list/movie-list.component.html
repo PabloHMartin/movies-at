@@ -1,6 +1,8 @@
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 <div style="padding: 1rem;">
-  <mat-card *ngFor="let movie of movies">
+
+  <a *ngFor="let movie of movies" [routerLink]="movie.id.toString()">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>{{ movie.title }}</mat-card-title>
     </mat-card-header>
@@ -11,4 +13,5 @@
       </mat-chip-list>
     </mat-card-content>
   </mat-card>
+  </a>
 </div>

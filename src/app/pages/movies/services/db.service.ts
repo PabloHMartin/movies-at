@@ -17,7 +17,9 @@ export class DbService {
     return this.http.get<Movie[]>(this.MOVIES_URI);
   }
 
-  getMovie(id: number): Observable<Movie> {
+  getMovie(id: string): Observable<Movie> {
+    console.log('service', id);
+
     return this.http.get<Movie>(`${this.MOVIES_URI}/${id}`);
   }
 }

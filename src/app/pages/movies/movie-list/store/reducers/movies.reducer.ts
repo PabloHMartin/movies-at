@@ -1,6 +1,5 @@
-import { AppState } from 'src/app/store/app.reducers';
 import { Movie } from 'src/app/shared/models/movie.model';
-import { Action, createReducer, on, State } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { loadMovies, loadMoviesSuccess, loadMoviesError } from '../actions';
 
 export interface MoviesState {
@@ -10,9 +9,6 @@ export interface MoviesState {
      error: any
 };
 
-export interface AppStateWithMovies extends AppState{
-  movies: MoviesState
-}
 
 const MoviesInitialState: MoviesState = {
     movies: [],
@@ -29,11 +25,21 @@ const _moviesReducer = createReducer(
   ),
   on(
     loadMoviesSuccess,
-    (state, { movies }) => ({...state, loading: false, loaded: true, movies: [ ...movies ]}),
+    (state, { movies }) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      movies: [ ...movies ]
+    })
   ),
   on(
     loadMoviesError,
-    (state, { payload }) => ({...state, loading: false, loaded: true, error: payload}),
+    (state, { payload }) =>
+    ({...state,
+      loading: false,
+      loaded: true,
+      error: payload
+    }),
   ),
 );
 
